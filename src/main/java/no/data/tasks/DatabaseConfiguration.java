@@ -20,7 +20,7 @@ public class DatabaseConfiguration {
             task.setDescription("Mobile app");
             task.setStart(LocalDateTime.now());
             task.setFinish(LocalDateTime.now().plusMinutes(30L));
-            repository.save(task);
+            //repository.save(task);
         };
     }
 }

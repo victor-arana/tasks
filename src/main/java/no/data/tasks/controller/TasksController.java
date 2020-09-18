@@ -2,11 +2,9 @@ package no.data.tasks.controller;
 
 import no.data.tasks.dao.TasksRepository;
 import no.data.tasks.entity.Task;
+import no.data.tasks.exception.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +21,15 @@ public class TasksController {
     }
 
     @PostMapping("/tasks")
-    Task createTask(@RequestBody Task task) {
+    public Task createTask(@RequestBody Task task) {
         return repository.save(task);
     }
+
+    @GetMapping("/tasks/{id}")
+    public Task getTask(@PathVariable Long id){
+
+        return repository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
+    }
+
 
 }
